@@ -1,0 +1,43 @@
+/*
+* Javascript sorting using selection sort
+* select an array element and then find the lowest value in array except that
+* swap the current value with the new value
+* keep repeating the steps untill you reach end of the array
+*/
+let inputArray = [9, 4, 5, 7, 2, 4, 1, 0, -2, -1];
+
+((input) => {
+  
+  var selectionSort = (arr) => {
+    // initialize the variables
+    let len = arr.length,
+        temp = [],
+        minIndex;
+    
+    // iterate and get the lowest value in the list
+    for(let i = 0; i < len; i++) {
+      
+      minIndex = i;
+      
+      for(let j = i + 1; j < len; j++) {
+        if(arr[j] < arr[minIndex]) {
+          minIndex = j;
+        }
+      }
+      
+      //swap the value with minimum value
+      temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;      
+    }
+    
+    
+    return arr;
+  }
+  
+
+  // call the selectionsort to sort the input array
+  const result = selectionSort(input);
+  console.log(result);
+  
+})(inputArray);
