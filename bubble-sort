@@ -1,0 +1,29 @@
+/*
+* Javascript sorting using bubble sort
+* each value is checked with next and then swaped
+*/
+let inputArray = [9, 4, 5, 7, 2, 4, 1, 0, -2, -1];
+
+((input) => {
+  
+  var bubbleSort = (arr) => {
+   var len = arr.length;
+   for (var i = len-1; i>=0; i--){
+     for(var j = 1; j<=i; j++){
+       if(arr[j-1]>arr[j]){
+           var temp = arr[j-1];
+           arr[j-1] = arr[j];
+           arr[j] = temp;
+        }
+     }
+   }
+    
+    return arr;
+  }
+  
+
+  // call the bubblesort to sort the input array
+  const result = bubbleSort(input);
+  console.log(result);
+  
+})(inputArray);
