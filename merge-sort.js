@@ -30,6 +30,15 @@ let inputArray = [9, 4, 5, 7, 2, 4, 1, 0, -2, -1];
     var pivot = Math.floor(arr.length / 2);
 
     return mergeArray(mergeSort(items.slice(0, middle)), mergeSort(items.slice(middle)));
+    
+    /*
+    * for in-place sorting
+    var params = mergeArray(mergeSort(items.slice(0, middle)), mergeSort(items.slice(middle)));
+    params.unshift(0, items.length);
+    items.splice.apply(items, params);
+    return items;    
+    */
+    
   }
   
   // call the mergesort to sort the input array
