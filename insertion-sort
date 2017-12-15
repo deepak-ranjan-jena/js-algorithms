@@ -1,0 +1,35 @@
+/*
+* Javascript sorting using insertion sort
+* Take two arrays(sorted - initially blank, unsorted - by default)
+* insert the value to sorted array and compare with each value with unsorted array
+* shift the array position accordingly
+*/
+let inputArray = [9, 4, 5, 7, 2, 4, 1, 0, -2, -1];
+
+((input) => {
+  
+  var insertionSort = (arr) => {
+    // initialize the variables
+    var len = arr.length,
+        currentValue,
+        i, j;
+    
+    // iterate and insert the value in correct position
+    for(i = 0; i < len; i++) {
+      currentValue = arr[i];
+      for (j=i-1; j > -1 && arr[j] > currentValue; j--) {
+        arr[j+1] = arr[j];
+      }
+      
+      arr[j+1] = currentValue;
+    }    
+    
+    return arr;
+  }
+  
+
+  // call the insertionsort to sort the input array
+  const result = insertionSort(input);
+  console.log(result);
+  
+})(inputArray);
