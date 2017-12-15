@@ -1,6 +1,9 @@
 /*
 * Javascript array sorting using merge sort
 */
+/*
+* Javascript array sorting using merge sort
+*/
 let inputArray = [9, 4, 5, 7, 2, 4, 1, 0, -2, -1];
 ((input) => {
   
@@ -27,9 +30,9 @@ let inputArray = [9, 4, 5, 7, 2, 4, 1, 0, -2, -1];
           return arr;
     }
 
-    var pivot = Math.floor(arr.length / 2);
+    var middle = Math.floor(arr.length / 2);
 
-    return mergeArray(mergeSort(items.slice(0, middle)), mergeSort(items.slice(middle)));
+    return mergeArray(mergeSort(arr.slice(0, middle)), mergeSort(arr.slice(middle)));
     
     /*
     * for in-place sorting
