@@ -80,11 +80,78 @@
     };
   };
   
+  // method to delete a node
+  BinaryTree.prototype.delete = function(value, subTree) {
+    // find node to remove and its parent
+    var node = null,
+        parent = null,
+        dir = '';
+    
+    // set the sub tree
+    subTree = subTree || this.root;
+    
+    while(subTree) {
+      // matched found
+      if(value === subTree.value) {
+        node = subTree;
+        break;
+      } else if(value < subTree.value) {
+        parent = subTree;
+        subTree = subTree.leftNode;
+        dir = 'leftNode';
+      } else if(value > subTree.value) {
+        parent = subTree;
+        subTree = subTree.rightNode;
+        dir = 'rightNode';
+      }
+    }
+    
+    // if no node found, return null
+    if(!node) {
+      console.log(`Node: ${value} doesn't exist in this BST`);
+      return null;
+    }
+    
+    // two child
+    if(node.leftNode && node.rightNode) {
+      // find the immidiate successor from right node
+      var minNode = node.rightNode,
+          minNodeValue;
+      
+      // look till you reach the bottom of the tree in left tree
+      while(minNode) {
+        if(minNode.leftNode) {
+          minNode = minNode.leftNode;
+        } else {
+          break; // we are at the bottom of the tree
+        }
+      }
+      
+      minNodeValue = minNode.value;
+      
+      // delete the minNode
+      this.delete(minNode.value);
+      
+      // replace the node value with min value
+      node.value = minNodeValue;
+
+    } else if(!node.leftNode && !node.rightNode) { // no children
+      parent[dir] = null;
+    } else { // one child
+      parent[dir] = node.leftNode ? node.leftNode : node.rightNode;      
+    }    
+    
+    // release the min Node
+    node = null;
+    
+    return subTree;
+  };
+  
   // print binary tree;
   BinaryTree.prototype.printTree = function(subTree) {
     // if there is no sub tree, return the value
     if(!subTree) return;
-    
+
     console.log(subTree.value);
     
     // call left and right node to print the values
@@ -93,20 +160,23 @@
   }
   
   const tree = new BinaryTree();
-  tree.insert(20);
-  tree.insert(10);
-  tree.insert(25);
   tree.insert(5);
-  tree.insert(8);
-  tree.insert(15);
-  tree.insert(16);
+  tree.insert(2);
+  tree.insert(12);
+  tree.insert(-4);
+  tree.insert(3);
+  tree.insert(9);
+  tree.insert(21);
+  tree.insert(19);
+  tree.insert(25);
 
+  // locate any node in BST
+  tree.locate(5);
   
-  
+  // remove node from BST
+  tree.delete(12);
+
   // print the results
   tree.printTree(tree.root);
-  
-  // locate any node in BST
-  tree.locate(20);
   
 })();
