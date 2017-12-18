@@ -147,34 +147,74 @@
     return subTree;
   };
   
+  // Breadth First search
+  BinaryTree.prototype.breadthFirstSeach = function(val) {
+    // if there is no root, then return false
+    if(!this.root) return;
+    
+    // take a queue and current value to track
+    var queue = [this.root],
+        current = null,
+        level = 0; // level will indicate which level the value is present in BST starting 1
+    
+    while(queue[0]) {
+      // remove the first item from queue and assign it to current
+      current = queue.shift();
+      
+      // if match found
+      if(val === current.value) {
+        // if match found, then empty the queue and return the value
+        queue = [];
+        console.log(`${val} found in this BST at level: ${level}`);
+        return [current, level];
+      } else {
+        // if the node has a left child
+        if(current.leftNode) {
+          queue.push(current.leftNode);
+        }
+        // if the node has a right child
+        if(current.rightNode) {
+          queue.push(current.rightNode)
+        }
+        
+        // increment the level is there is a left /right child
+        if(current.leftNode || current.rightNode)
+          level++;
+      }
+    }
+    
+    console.log(`${val} doesn't exist in this BST`);
+    return null;
+  };
+  
   // print binary tree;
   BinaryTree.prototype.printTree = function(subTree) {
     // if there is no sub tree, return the value
     if(!subTree) return;
-
-    console.log(subTree.value);
     
     // call left and right node to print the values
     this.printTree(subTree.leftNode);
+    console.log(subTree.value);
     this.printTree(subTree.rightNode);
   }
   
   const tree = new BinaryTree();
-  tree.insert(5);
-  tree.insert(2);
-  tree.insert(12);
-  tree.insert(-4);
-  tree.insert(3);
-  tree.insert(9);
-  tree.insert(21);
-  tree.insert(19);
+  tree.insert(20);
+  tree.insert(10);
   tree.insert(25);
-
+  tree.insert(5);
+  tree.insert(15);
+  tree.insert(8);
+  tree.insert(16);
+  
   // locate any node in BST
   tree.locate(5);
   
   // remove node from BST
-  tree.delete(12);
+  //tree.delete(10);
+  
+  // search using breadth first approach
+  tree.breadthFirstSeach(15);
 
   // print the results
   tree.printTree(tree.root);
